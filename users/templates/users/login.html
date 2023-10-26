@@ -1,0 +1,212 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+
+{% block body %}
+
+<div class="container col-xxl-8 px-2 mt-4">
+  <div class="row flex-lg-row-reverse align-items-center g-5">
+    <div class="col-10 col-sm-8 col-lg-6">
+      <img src="{% static 'users/images/pexels-worldspectrum-844124.jpg' %}" class="crypto d-block mx-lg-auto img-fluid rounded" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+    </div>
+    <div class="col-lg-6">
+      {% if user.is_authenticated %}
+      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Welcome Web3 User!</h1>
+      <p>{{ user.username }}</p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg px-4 me-md-2">Dashboard</a>
+        <a href="{% url 'logout' %}?next={% url 'connect' %}" class="btn btn-primary btn-lg px-4 me-md-2">Logout</a>
+      </div>
+      <br/>
+      {% else %}
+      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Connect with CryptoDart</h1>
+      <p> Sign up now in cryptoDart with <b>Metamask</b> to track your profile, check what's trending and to manage your portfolio</p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <button type="button" id="auth-metamask" class="btn btn-primary btn-lg px-4 me-md-2">Connect Metamask</button>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="container px-2 mt-5" id="custom-cards">
+
+
+
+  <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+    <div class="col">
+      <div class="card card-cover h-100 overflow-hidden rounded-4 shadow-lg" style="background-image: url('{% static 'users/images/trade.jpg' %}');background-size: 100%;">
+        <div class="c1 d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+          <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">💸 Portfolio</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card card-cover h-100 overflow-hidden rounded-4 shadow-lg" style="background-image: url('{% static 'users/images/market.jpg' %}');background-size: 100%;">
+        <div class="c2 d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+          <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">💹 Market</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card card-cover h-100 overflow-hidden  rounded-4 shadow-lg" style="background-image: url('{% static 'users/images/news.jpg' %}');background-size: 100%;">
+        <div class="c3 d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+          <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">📰 News</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="container px-4 py-5" id="featured-3">
+  <h1 class="text-center mt-2 mb-2">Why CryptoDart?</h1>
+  <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+    <div class="feature col">
+      <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-gradient fs-2 mb-3">
+        <i class="fa-brands fa-searchengin"></i>
+        </svg>
+      </div>
+      <h3 class="fs-2 text-body-emphasis">Trade Tracking</h3>
+      <p>Effortlessly record and monitor trades across various exchanges.</p>
+
+    </div>
+    <div class="feature col">
+      <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-gradient fs-2 mb-3">
+        <i class="fa-solid fa-dollar-sign"></i>
+      </div>
+      <h3 class="fs-2 text-body-emphasis">Live PNL Status</h3>
+      <p>Get real-time profit and loss updates for each active and closed trade.</p>
+
+    </div>
+    <div class="feature col">
+      <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-gradient fs-2 mb-3">
+        <i class="fa-solid fa-money-bill-trend-up"></i>
+      </div>
+      <h3 class="fs-2 text-body-emphasis">Trade Management</h3>
+      <p>Add and close trades with ease using intuitive trade management tools.</p>
+
+    </div>
+    <div class="feature col">
+      <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-gradient fs-2 mb-3">
+        <i class="fa-solid fa-chart-column"></i>
+      </div>
+      <h3 class="fs-2 text-body-emphasis">Dashboard Insights</h3>
+      <p>View aggregated data for specific coins and exchanges on a dashboard.</p>
+
+    </div>
+
+    <div class="feature col">
+      <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-gradient fs-2 mb-3">
+        <i class="fa-solid fa-magnifying-glass-chart"></i>
+      </div>
+      <h3 class="fs-2 text-body-emphasis">Real-Time Market Data</h3>
+      <p>Access up-to-the-minute market information to make informed trading decisions.</p>
+
+    </div>
+
+    <div class="feature col">
+      <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-gradient fs-2 mb-3">
+        <i class="fa-solid fa-newspaper"></i>
+      </div>
+      <h3 class="fs-2 text-body-emphasis">Crypto News Feed</h3>
+      <p>Stay updated with the latest crypto news and trends from various sources."
+        Dashboard Insights</p>
+
+    </div>
+
+
+  </div>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    {% if user.is_authenticated %}
+    {% else %}
+
+    <script>
+    const elBtnMetamask = document.getElementById('auth-metamask');
+
+    const handleApiPost = async (endpoint, params) => {
+      const result = await axios.post(`${endpoint}`, params, {
+        headers: {
+          'content-type': 'application/json',
+          "X-CSRFToken": '{{ csrf_token }}'
+        },
+      });
+
+      return result.data;
+    };
+
+    const requestMessage = (account, chain) =>
+      handleApiPost('{% url 'request_message' %}', {
+        address: account,
+        chain: chain,
+        network: 'evm',
+      });
+
+    const verifyMessage = (message, signature) =>
+      handleApiPost('{% url 'verify_message' %}', {
+        message,
+        signature,
+        network: 'evm',
+      });
+
+    const connectToMetamask = async () => {
+      const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+
+      const [accounts, chainId] = await Promise.all([
+        provider.send('eth_requestAccounts', []),
+        provider.send('eth_chainId', []),
+      ]);
+
+      const signer = provider.getSigner();
+      return { signer, chain: chainId, account: accounts[0] };
+    };
+
+    const handleAuth = async () => {
+      // Connect to Metamask
+      const { signer, chain, account } = await connectToMetamask();
+      console.log("account", account, "chain", chain)
+
+      if (!account) {
+        throw new Error('No account found');
+      }
+      if (!chain) {
+        throw new Error('No chain found');
+      }
+
+      const { message } = await requestMessage(account, chain);
+      const signature = await signer.signMessage(message);
+      const { user } = await verifyMessage(message, signature);
+      console.log(user)
+      if (user) {
+        location.reload();
+      }
+      else{
+        alert("authentication error")
+      }
+    };
+
+
+    function init() {
+      elBtnMetamask.addEventListener('click', async () => {
+        handleAuth().catch((error) => console.log(error));
+      });
+    }
+
+    window.addEventListener('load', () => {
+      init();
+    });
+
+    </script>
+    {% endif %}
+
+{% endblock %}
+
+
+

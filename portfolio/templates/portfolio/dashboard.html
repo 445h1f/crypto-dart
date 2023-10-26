@@ -1,0 +1,73 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block body %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-2">
+        <div class="row">
+            <h1 class="text-center mb-4">Manage Trades</h1>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <img src="{% static 'portfolio/images/trade.webp' %}" class="card-img-top" alt="Add Trade">
+                    <div class="card-body">
+                        <h5 class="card-title">Add Trade</h5>
+                        <a href="{% url 'add_trade' %}" class="btn btn-primary">Go to Add Trade</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <img src="{% static 'portfolio/images/all_trades.jpg' %}" class="card-img-top" alt="View All Trades">
+                    <div class="card-body">
+                        <h5 class="card-title">View All Trades</h5>
+                        <a href="{% url 'view_all_trades' %}" class="btn btn-primary">Go to View All Trades</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container my-5">
+        <div class="row">
+            {% if assets %}
+            <h1 class="text-center mb-2">Your Assets Overview</h1>
+            {% for asset in assets %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-img item-card-img text-center mt-2">
+                        <img src="{% static 'portfolio/images/'%}{{ asset.name }}.png"
+                                 alt="""
+                                 class="img-fluid"
+                                 style="object-fit: cover;
+                                        width: 200px; height=200px" />
+                    </div>
+                    <div class="card-body text-center font-monospace">
+                        <h5 class="card-title">{{ asset.name }}</h5>
+                        <p><strong>Current Asset Price:</strong> ${{ asset.current_price }}</p>
+                        <p><strong>Active Investments:</strong> ${{ asset.active_investment }}</p>
+                        <p><strong>Closed Investments:</strong> ${{ asset.closed_investment }}</p>
+                        <p><strong>Total PNL:</strong> <span class="text-{% if asset.pnl < 0 %}danger{% else %}success{% endif %}">${{ asset.pnl }}</span></p>
+                        <p><strong>Avg Buy Price:</strong> ${{ asset.avg_price }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+              <h1>No trades found.</h1>
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>
+
+{% endblock %}

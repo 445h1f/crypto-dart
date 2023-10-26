@@ -1,0 +1,19 @@
+
+.nav-item {
+    margin:1px 10px;
+    padding:0px;
+}
+
+
+.crypto {
+    border-radius: 10px;
+}
+
+.py-5 {
+    padding-top: 1rem!important;
+    padding-bottom: 1rem!important;
+}
+.c1:hover, .c2:hover, c3:hover{
+    opacity: 1;
+    color: black;
+}

@@ -1,0 +1,60 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% load poll_extras %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+
+    {% if trade %}
+
+<div class="container mt-3">
+    <div class="row">
+      <h2 class="mt-3 text-center">Trade Details</h2>
+      <div class="col-md-6">
+        <div
+          class="d-flex align-items-center justify-content-center mt-3"
+         >
+          <img
+            src="{% static 'portfolio/images/add_trade.jpg' %}"
+            alt="Product Image"
+            id="image-{{product.id}}"
+            class="img-fluid rounded"
+            style="height:120%; max-height: 100%; max-width: 100%"
+          />
+        </div>
+      </div>
+
+      <div class="col-md-6 mt-3 font-monospace">
+        <h5 class="card-title fw-bold mb-2 fs-4"><img src="{% static 'portfolio/images/asset_logo/'%}{{ trade.asset }}.png" width="32" height="32"> {{ trade.asset }}</h5>
+        <p class="card-text fs-5"><strong>Buy Price:</strong> {{ trade.price }}</p>
+        {% if trade.current_price %}
+            <p class="card-text fs-5"><strong>Current Price:</strong> {{ trade.current_price }}</p>
+        {% endif %}
+        <p class="card-text fs-5"><strong>PNL:</strong><span class="text-{% if trade.pnl < 0 %}danger{% else %}success{% endif %}"> ${{ trade.pnl }}</span></p>
+        <p class="card-text fs-5"><strong>Total Price:</strong> {{ trade.total_price }}</p>
+        <p class="card-text fs-5"><strong>Exchange:</strong> {{ trade.exchange }}</p>
+
+        {% if trade.status == "active" %}
+            <form method="post" action="{% url 'close_trade' trade|getIdStr:'_id' %}">
+                {% csrf_token %}
+                <input type="number" step="0.00000001" class="form-control" id="price" placeholder="Enter sell price" name="close_price">
+                <button type="submit" class="btn btn-danger mt-2">Close Trade</button>
+            </form>
+        {% else %}
+            <p class="card-text fs-5"><strong>Trade Status:</strong> Closed</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+    {% else %}
+        <p>Trade not found.</p>
+    {% endif %}
+
+</div>
+</div>
+</div>
+{% endblock %}

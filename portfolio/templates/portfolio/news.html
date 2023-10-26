@@ -1,0 +1,35 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% load poll_extras %}
+
+{% block body %}
+<div class="container mt-2">
+    <div class="row">
+{% if news_list %}
+        <h1 class="text-center mb-3">Crypto News</h1>
+      {% for news in news_list %}
+      <div class="col-md-6">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-primary-emphasis">{{ news.keywords|first }}</strong>
+            <h3 class="mb-0">{{ news.source_id|title }} </h3>
+            <div class="mb-1 text-body-secondary">{{ news.pubDate }}</div>
+            <p class="card-text mb-auto">{{ news.description|truncatechars:100 }}</p>
+            <a href="{{ news.link }}" class="icon-link gap-1 icon-link-hover stretched-link" target="_blank">
+              Continue reading
+              <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+            </a>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <img src="{% if news.image_url %}{{ news.image_url }} {% else %} {% static 'portfolio/images/' %}{{ random_images|randomItem }} {% endif %}" width="200" height="250" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+{% else %}
+  <h1>No news found</h1>
+</div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% load poll_extras %}
+
+{% block body %}
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-md-12">
+            {% if trades %}
+        <h1 class="text-center mb-4 mt-2">Trade List</h1>
+        <table class="table table-bordered text-center table-striped">
+            <thead>
+                <tr>
+                    <th>Asset</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                    <th>Total Price</th>
+                    <th>PNL</th>
+                    <th>Exchange</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trade in trades %}
+
+                <tr class="font-monospace" onclick="window.location='{% url 'close_trade' trade|getIdStr:'_id' %}';" style="cursor: pointer;"">
+                            <td>
+                                <img src="{% static 'portfolio/images/asset_logo/'%}{{ trade.asset }}.png" width="32" height="32">
+
+                                {{ trade.asset }}
+                            </td>
+                            <td>${{ trade.price }}</td>
+                            <td>{{ trade.amount }}</td>
+                            <td>${{ trade.total_price }}</td>
+                            <td><span class="text-{% if trade.pnl < 0 %}danger{% else %}success{% endif %}">${{ trade.pnl }}</span></td>
+                            <td>
+                                <img class="rounded" src="{% static 'portfolio/images/exchange_logo/'%}{{ trade.exchange }}.png" width="32" height="32"> {{ trade.exchange }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+            {% else %}
+            <div class="text-center">
+                <h1>No trades found.</h1>
+                <h2>Start logging now: <a href="{% url 'add_trade' %}" class="nav-item">Add</a></h2>
+              </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
